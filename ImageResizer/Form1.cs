@@ -16,7 +16,8 @@ namespace ImageResizer
     public partial class Form1 : Form
     {
         //create new image
-        Image img;
+        Bitmap img;
+        Image cp;
 
         //array of file extensions
         string[] exten = { ".PNG", ".JPG", ".JPEG", ".GIF" };
@@ -24,7 +25,10 @@ namespace ImageResizer
 
         PictureBox org;
         bool pan = false;//when true can pan
-        
+
+        //getting reference of classes
+        ImageManipulation modifyRGB = new ImageManipulation();
+        FileOperations fileOp = new FileOperations();
 
         Image ZoomPicture(Image img2, Size size)
         {
@@ -38,8 +42,10 @@ namespace ImageResizer
         {
             
             InitializeComponent();
+            modifyRGB.ImageFinished += OnImageFinished;
         }
 
+        
         private void label1_Click(object sender, EventArgs e)
         {
             
@@ -80,16 +86,9 @@ namespace ImageResizer
         private void button1_Click(object sender, EventArgs e)
         {
             //getting image
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "images | *.png;*jpg;*jpeg;*gif";
-
-            //checking ofd info
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtslct.Text = ofd.FileName;
-                img = Image.FromFile(ofd.FileName);
-                pictureBox.Image = img;
-            }
+            img = fileOp.OpenFile(txtslct);
+            pictureBox.Image = img;
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -118,7 +117,7 @@ namespace ImageResizer
 
         }
 
-        Image Resize(Image image, int w, int h)
+        Bitmap Resize(Image image, int w, int h)
         {
             
             //creating new bitmap and graphic from that bitmap
@@ -131,6 +130,10 @@ namespace ImageResizer
 
             pictureBox_Resized.Image = bmp;
             //return the new bmp
+
+            //allowing the manipulation option to be active
+            btn_manipulate.Enabled = true;
+
             return bmp;
         }
 
@@ -160,6 +163,7 @@ namespace ImageResizer
             ((Button)sender).Enabled = false;
             MessageBox.Show("Image Saved");
             
+            
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -180,7 +184,7 @@ namespace ImageResizer
         {
             using (Bitmap mybitmab = new Bitmap(@InputImage))
             {
-                ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+                ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Png);
 
                 System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
 
@@ -279,6 +283,60 @@ namespace ImageResizer
                 }
 
             }
+        }
+
+
+        /// <summary>
+        /// Will Display the selected image into either image area1 or image area2 or image area resize or all if imagewindow
+        /// is any other than 1 or 2 (including no value [will default to 0])</summary>
+        /// <param name="imgsource"></param>
+        /// <param name="imagewindow"></param>
+        public void DisplayImage(Bitmap imgsource, int imagewindow)
+        {
+            //Placing image inside of image section
+            switch (imagewindow)
+            {
+                case 1:
+                    {
+                        pictureBox.Image = imgsource;
+                    }
+                    break;
+
+                case 2:
+                    {
+                        pictureBox_image2.Image = imgsource;
+                    }
+                    break;
+
+                case 3:
+                    {
+                        pictureBox_Resized.Image = imgsource;
+                    }
+                    break;
+
+                default:
+                    {
+                        pictureBox.Image = imgsource;
+                        pictureBox_image2.Image = imgsource;
+                        pictureBox_Resized.Image = imgsource;
+                    }
+                    break;
+            }
+
+            
+        }
+
+
+        //The Event
+        public void OnImageFinished(object sender, ImageEventArgs e)
+        {
+            DisplayImage(e.e_bmap, 2);
+            EventHandlerText.Text = "Event Handler Received";
+        }
+        
+        private void btn_manipulate_Click(object sender, EventArgs e)
+        {
+            modifyRGB.Manipulate(img);
         }
     }
 }

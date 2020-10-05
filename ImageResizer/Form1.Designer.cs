@@ -51,10 +51,14 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.ResizePanel = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
+            this.pictureBox_image2 = new System.Windows.Forms.PictureBox();
+            this.btn_manipulate = new System.Windows.Forms.Button();
+            this.EventHandlerText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Resized)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.ResizePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -182,7 +186,7 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(11, 245);
+            this.pictureBox.Location = new System.Drawing.Point(9, 253);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(294, 190);
             this.pictureBox.TabIndex = 15;
@@ -252,17 +256,49 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(570, 25);
+            this.label8.Location = new System.Drawing.Point(488, 9);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(290, 52);
             this.label8.TabIndex = 18;
             this.label8.Text = resources.GetString("label8.Text");
+            // 
+            // pictureBox_image2
+            // 
+            this.pictureBox_image2.Location = new System.Drawing.Point(12, 462);
+            this.pictureBox_image2.Name = "pictureBox_image2";
+            this.pictureBox_image2.Size = new System.Drawing.Size(309, 204);
+            this.pictureBox_image2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_image2.TabIndex = 22;
+            this.pictureBox_image2.TabStop = false;
+            // 
+            // btn_manipulate
+            // 
+            this.btn_manipulate.Enabled = false;
+            this.btn_manipulate.Location = new System.Drawing.Point(510, 149);
+            this.btn_manipulate.Name = "btn_manipulate";
+            this.btn_manipulate.Size = new System.Drawing.Size(112, 23);
+            this.btn_manipulate.TabIndex = 23;
+            this.btn_manipulate.Text = "Manipulate";
+            this.btn_manipulate.UseVisualStyleBackColor = true;
+            this.btn_manipulate.Click += new System.EventHandler(this.btn_manipulate_Click);
+            // 
+            // EventHandlerText
+            // 
+            this.EventHandlerText.AutoSize = true;
+            this.EventHandlerText.Location = new System.Drawing.Point(639, 149);
+            this.EventHandlerText.Name = "EventHandlerText";
+            this.EventHandlerText.Size = new System.Drawing.Size(35, 13);
+            this.EventHandlerText.TabIndex = 24;
+            this.EventHandlerText.Text = "label9";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1033, 678);
+            this.Controls.Add(this.EventHandlerText);
+            this.Controls.Add(this.btn_manipulate);
+            this.Controls.Add(this.pictureBox_image2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.ResizePanel);
             this.Controls.Add(this.trackBar1);
@@ -291,6 +327,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResizePanel.ResumeLayout(false);
             this.ResizePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,6 +357,9 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Panel ResizePanel;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.PictureBox pictureBox_image2;
+        private System.Windows.Forms.Button btn_manipulate;
+        private System.Windows.Forms.Label EventHandlerText;
     }
 }
 
